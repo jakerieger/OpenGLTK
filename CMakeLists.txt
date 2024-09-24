@@ -22,6 +22,8 @@ set(SOURCES
         Source/TextureLoader.h
         Testbed/main.cpp
         Source/Vertex.h
+        Source/Camera.cpp
+        Source/Camera.h
 )
 
 add_library(OpenGLTK STATIC

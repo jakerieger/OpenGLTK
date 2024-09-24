@@ -8,7 +8,7 @@
 
 #include <fstream>
 
-namespace IO {
+namespace GLTK::IO {
     inline Option<str> Read(const Path& filename) {
         if (!exists(filename) || is_directory(filename)) {
             return kNone;
@@ -126,4 +126,4 @@ namespace IO {
 
         return true;
     }
-}  // namespace IO
+}  // namespace GLTK::IO
