@@ -3,12 +3,8 @@
 //
 
 #pragma once
+#pragma warning(disable : 4244)
 
-#include "Camera.h"
-#include "Camera.h"
-#include "Camera.h"
-#include "Camera.h"
-#include "Camera.h"
 #include "Camera.h"
 #include "Types.h"
 

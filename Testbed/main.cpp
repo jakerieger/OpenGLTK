@@ -2,6 +2,7 @@
 // Created: 9/23/2024.
 //
 
+#include "Camera.h"
 #include "Shader.h"
 #include "Types.h"
 
@@ -38,6 +39,7 @@ int main() {
     auto texture = GLTK::LoadTexture("Assets/Textures/circle.png");
     auto shader =
       new GLTK::Shader(Path("Assets/Shaders/Sprite.vert"), Path("Assets/Shaders/Sprite.frag"));
+    auto camera = GLTK::CreateCamera<GLTK::OrthoCamera>(800, 600);
 
     while (!glfwWindowShouldClose(gWindow)) {
         glfwPollEvents();
@@ -45,11 +47,13 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Update code
-        {}
+        { camera->Update(); }
 
         // Render code
         {
             shader->Bind();
+
+            auto mvp = camera->GetViewProjection() * glm::mat4(1);
 
             GLTK::Shader::Unbind();
         }
