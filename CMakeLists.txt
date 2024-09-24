@@ -15,7 +15,6 @@ include_directories(
 set(SOURCES
         Source/Types.h
         Source/IO.h
-        Source/Panic.h
         Source/OpenGLTK.cpp
         Source/OpenGLTK.h
         Source/Shader.cpp
