@@ -3,7 +3,7 @@
 //
 
 #include "Shader.h"
-#include "Panic.h"
+#include <Panic/Panic.h>
 #include "IO.h"
 
 #include <glad/glad.h>

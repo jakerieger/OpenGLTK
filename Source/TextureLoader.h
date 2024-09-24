@@ -5,11 +5,11 @@
 #pragma once
 
 #include "Types.h"
-#include "Panic.h"
 
 #include <format>
 #include <stb_image.h>
 #include <glad/glad.h>
+#include <Panic/Panic.h>
 
 namespace GLTK {
     inline u32 LoadTexture(const char* filename, int* width = nullptr, int* height = nullptr) {

@@ -1,0 +1,3 @@
+[submodule "ThirdParty/Panic"]
+	path = ThirdParty/Panic
+	url = https://github.com/jakerieger/Panic.git
