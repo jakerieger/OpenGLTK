@@ -2,9 +2,7 @@
 // Created: 9/23/2024.
 //
 
-#include "Camera.h"
-#include "Shader.h"
-#include "Types.h"
+#include "OpenGLTK.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -36,10 +34,10 @@ int main() {
 
     glViewport(0, 0, 800, 600);
 
-    auto texture = GLTK::LoadTexture("Assets/Textures/circle.png");
-    auto shader =
-      new GLTK::Shader(Path("Assets/Shaders/Sprite.vert"), Path("Assets/Shaders/Sprite.frag"));
-    auto camera = GLTK::CreateCamera<GLTK::OrthoCamera>(800, 600);
+    const auto texture = GLTK::LoadTexture("Assets/Textures/circle.png");
+    const auto shader =
+      GLTK::Shader::Create(Path("Assets/Shaders/Sprite.vert"), Path("Assets/Shaders/Sprite.frag"));
+    const auto camera = GLTK::CreateCamera<GLTK::OrthoCamera>(800, 600);
 
     while (!glfwWindowShouldClose(gWindow)) {
         glfwPollEvents();
@@ -53,13 +51,15 @@ int main() {
         {
             shader->Bind();
 
-            auto mvp = camera->GetViewProjection() * glm::mat4(1);
+            auto mvp = camera->GetViewProjection() * glm::mat4(1.f);
 
             GLTK::Shader::Unbind();
         }
 
         glfwSwapBuffers(gWindow);
     }
+
+    GLTK::DeleteTexture(texture);
 
     glfwDestroyWindow(gWindow);
     glfwTerminate();

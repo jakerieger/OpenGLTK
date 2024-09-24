@@ -4,6 +4,10 @@
 
 #pragma once
 
-namespace GLTK {
-    class IRenderable {};
-}  // namespace GLTK
+#include "Camera.h"
+#include "Drawable.h"
+#include "Shader.h"
+#include "TextureLoader.h"
+#include "VertexArray.h"
+
+namespace GLTK {}  // namespace GLTK

@@ -30,6 +30,11 @@ namespace GLTK {
         void SetMat3(const char* name, const glm::mat3& mat) const;
         void SetMat4(const char* name, const glm::mat4& mat) const;
 
+        template<typename... Args>
+        static Unique<Shader> Create(Args&&... args) {
+            return std::make_unique<Shader>(std::forward<Args>(args)...);
+        }
+
     private:
         void CompileShaders(const char* vertexSource, const char* fragmentSource);
         static void CheckErrors(u32 handle, bool isProgram = false);

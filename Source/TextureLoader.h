@@ -52,4 +52,8 @@ namespace GLTK {
         stbi_image_free(data);
         return id;
     }
+
+    inline void DeleteTexture(u32 id) {
+        glDeleteTextures(1, &id);
+    }
 }  // namespace GLTK
