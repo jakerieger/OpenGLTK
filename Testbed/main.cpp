@@ -20,7 +20,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    gWindow = glfwCreateWindow(800, 600, "ParticleSim (x64)", nullptr, nullptr);
+    gWindow = glfwCreateWindow(800, 600, "Testbed (x64)", None, None);
     if (!gWindow) {
         glfwTerminate();
         Panic("Failed to create GLFW window.");
@@ -28,7 +28,7 @@ int main() {
 
     glfwMakeContextCurrent(gWindow);
 
-    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
+    if (!gladLoadGLLoader(RCAST<GLADloadproc>(glfwGetProcAddress))) {
         glfwTerminate();
         Panic("Failed to initialize GLAD.");
     }

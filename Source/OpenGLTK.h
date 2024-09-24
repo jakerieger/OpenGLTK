@@ -6,5 +6,4 @@
 
 namespace GLTK {
     class IRenderable {};
-
 }  // namespace GLTK

@@ -15,8 +15,7 @@ namespace GLTK {
 
     Shader::Shader(const Path& vertexPath, const Path& fragmentPath) {
         if (!std::filesystem::exists(vertexPath) || !std::filesystem::exists(fragmentPath)) {
-            const auto fmt = std::format("Path does not exist: {}", vertexPath.string());
-            Panic(fmt.c_str());
+            Panic(GetSourceLocation(), "Path does not exist: {}", vertexPath.string());
         }
 
         const auto vertexSource = IO::Read(vertexPath).value_or("");
@@ -42,13 +41,13 @@ namespace GLTK {
     }
 
     void Shader::CompileShaders(const char* vertexSource, const char* fragmentSource) {
-        const uint32_t vertexShader = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShader, 1, &vertexSource, nullptr);
+        const u32 vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(vertexShader, 1, &vertexSource, None);
         glCompileShader(vertexShader);
         CheckErrors(vertexShader);
 
-        const uint32_t fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShader, 1, &fragmentSource, nullptr);
+        const u32 fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(fragmentShader, 1, &fragmentSource, None);
         glCompileShader(fragmentShader);
         CheckErrors(fragmentShader);
 
@@ -63,7 +62,7 @@ namespace GLTK {
         glDeleteShader(fragmentShader);
     }
 
-    void Shader::CheckErrors(uint32_t handle, bool isProgram) {
+    void Shader::CheckErrors(u32 handle, bool isProgram) {
         int success;
         char infoLog[1024];
 
@@ -71,14 +70,14 @@ namespace GLTK {
             glGetProgramiv(handle, GL_LINK_STATUS, &success);
 
             if (!success) {
-                glGetProgramInfoLog(handle, 1024, nullptr, infoLog);
+                glGetProgramInfoLog(handle, 1024, None, infoLog);
                 Panic(infoLog);
             }
         } else {
             glGetShaderiv(handle, GL_COMPILE_STATUS, &success);
 
             if (!success) {
-                glGetShaderInfoLog(handle, 1024, nullptr, infoLog);
+                glGetShaderInfoLog(handle, 1024, None, infoLog);
                 Panic(infoLog);
             }
         }
@@ -92,7 +91,7 @@ namespace GLTK {
         glUniform1i(glGetUniformLocation(mProgramID, name), value);
     }
 
-    void Shader::SetFloat(const char* name, float value) const {
+    void Shader::SetFloat(const char* name, f32 value) const {
         glUniform1f(glGetUniformLocation(mProgramID, name), value);
     }
 
@@ -100,7 +99,7 @@ namespace GLTK {
         glUniform2fv(glGetUniformLocation(mProgramID, name), 1, &value[0]);
     }
 
-    void Shader::SetVec2(const char* name, float x, float y) const {
+    void Shader::SetVec2(const char* name, f32 x, f32 y) const {
         glUniform2f(glGetUniformLocation(mProgramID, name), x, y);
     }
 
@@ -108,7 +107,7 @@ namespace GLTK {
         glUniform3fv(glGetUniformLocation(mProgramID, name), 1, &value[0]);
     }
 
-    void Shader::SetVec3(const char* name, float x, float y, float z) const {
+    void Shader::SetVec3(const char* name, f32 x, f32 y, f32 z) const {
         glUniform3f(glGetUniformLocation(mProgramID, name), x, y, z);
     }
 
@@ -116,7 +115,7 @@ namespace GLTK {
         glUniform4fv(glGetUniformLocation(mProgramID, name), 1, &value[0]);
     }
 
-    void Shader::SetVec4(const char* name, float x, float y, float z, float w) const {
+    void Shader::SetVec4(const char* name, f32 x, f32 y, f32 z, f32 w) const {
         glUniform4f(glGetUniformLocation(mProgramID, name), x, y, z, w);
     }
 

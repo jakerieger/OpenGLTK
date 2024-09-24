@@ -4,24 +4,23 @@
 
 #pragma once
 
+#include "Types.h"
 #include "Panic.h"
 
-#include <cstdint>
 #include <format>
 #include <stb_image.h>
 #include <glad/glad.h>
 
 namespace GLTK {
-    inline uint32_t LoadTexture(const char* filename, int* width = nullptr, int* height = nullptr) {
-        uint32_t id;
+    inline u32 LoadTexture(const char* filename, int* width = nullptr, int* height = nullptr) {
+        u32 id;
         glGenTextures(1, &id);
 
         int w, h, c;
         stbi_set_flip_vertically_on_load(true);
         stbi_uc* data = stbi_load(filename, &w, &h, &c, 0);
         if (!data) {
-            const auto errMsg = std::format("Failed to load texture '{}'", filename);
-            Panic(errMsg.c_str());
+            Panic(GetSourceLocation(), "Failed to load texture: {}", filename);
         }
 
         if (width)
@@ -38,15 +37,7 @@ namespace GLTK {
             format = GL_RGBA;
 
         glBindTexture(GL_TEXTURE_2D, id);
-        glTexImage2D(GL_TEXTURE_2D,
-                     0,
-                     static_cast<int>(format),
-                     w,
-                     h,
-                     0,
-                     format,
-                     GL_UNSIGNED_BYTE,
-                     data);
+        glTexImage2D(GL_TEXTURE_2D, 0, CAST<int>(format), w, h, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         glTexParameteri(GL_TEXTURE_2D,
