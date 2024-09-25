@@ -24,8 +24,6 @@ set(SOURCES
         Source/VertexArray.h
         Source/Camera.cpp
         Source/Camera.h
-        Source/Drawable.cpp
-        Source/Drawable.h
         Source/Buffer.h
 )
 

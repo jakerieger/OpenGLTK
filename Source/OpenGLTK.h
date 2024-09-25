@@ -5,7 +5,6 @@
 #pragma once
 
 #include "Camera.h"
-#include "Drawable.h"
 #include "Shader.h"
 #include "TextureLoader.h"
 #include "VertexArray.h"
