@@ -1,5 +1,5 @@
 set(THIRD_PARTY_DIR
-        ${CMAKE_SOURCE_DIR}/ThirdParty
+        ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty
 )
 
 set(THIRD_PARTY_SRCS

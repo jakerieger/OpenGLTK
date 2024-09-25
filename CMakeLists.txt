@@ -8,8 +8,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 include(ThirdParty/ThirdPartySources.cmake)
 
 include_directories(
-        ${CMAKE_SOURCE_DIR}/Source
-        ${CMAKE_SOURCE_DIR}/ThirdParty
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source
+        ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty
 )
 
 set(SOURCES
@@ -25,6 +25,8 @@ set(SOURCES
         Source/Camera.cpp
         Source/Camera.h
         Source/Buffer.h
+        Source/Clock.cpp
+        Source/Clock.h
 )
 
 add_library(OpenGLTK STATIC
