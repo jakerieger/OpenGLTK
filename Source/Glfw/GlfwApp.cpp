@@ -37,6 +37,8 @@ namespace GLTK {
             Panic("Failed to initialize OpenGL context");
         }
 
+        CreateGLResources();
+
         glViewport(0, 0, mWindowWidth, mWindowHeight);
         glClearColor(0.f, 0.f, 0.f, 1.f);
 
@@ -55,5 +57,7 @@ namespace GLTK {
             mClock->Update();
         }
         mClock->Stop();
+
+        DestroyGLResources();
     }
 }  // namespace GLTK

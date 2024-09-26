@@ -15,8 +15,10 @@ namespace GLTK {
     public:
         explicit IGlfwApp(str title, int width = 800, int height = 600);
         virtual ~IGlfwApp();
-        virtual void Update(f32 dT) = 0;
-        virtual void Render()       = 0;
+        virtual void CreateGLResources()  = 0;
+        virtual void DestroyGLResources() = 0;
+        virtual void Update(f32 dT)       = 0;
+        virtual void Render()             = 0;
         void Run();
 
     protected:
