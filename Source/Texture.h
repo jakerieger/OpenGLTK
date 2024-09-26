@@ -11,8 +11,15 @@
 #include <glad/glad.h>
 #include <Panic/Panic.h>
 
-namespace GLTK {
-    inline u32 LoadTexture(const char* filename, int* width = nullptr, int* height = nullptr) {
+namespace GLTK::Texture {
+    inline u32 GetGLSlot(u32 slot) {
+        if (slot > 31)
+            Panic(std::source_location::current(),
+                  "Slot is out of range! Must be (> 0) and (< 32)");
+        return GL_TEXTURE0 + slot;
+    }
+
+    inline u32 Load(const char* filename, int* width = nullptr, int* height = nullptr) {
         u32 id;
         glGenTextures(1, &id);
 
@@ -20,7 +27,7 @@ namespace GLTK {
         stbi_set_flip_vertically_on_load(true);
         stbi_uc* data = stbi_load(filename, &w, &h, &c, 0);
         if (!data) {
-            Panic(GetSourceLocation(), "Failed to load texture: {}", filename);
+            Panic(std::source_location::current(), "Failed to load texture: {}", filename);
         }
 
         if (width)
@@ -53,7 +60,16 @@ namespace GLTK {
         return id;
     }
 
-    inline void DeleteTexture(u32 id) {
+    inline void Delete(u32 id) {
         glDeleteTextures(1, &id);
     }
-}  // namespace GLTK
+
+    inline void Bind(u32 id, u32 slot) {
+        glBindTexture(GL_TEXTURE_2D, id);
+        glActiveTexture(GetGLSlot(slot));
+    }
+
+    inline void Unbind() {
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+}  // namespace GLTK::Texture

@@ -15,15 +15,15 @@ namespace GLTK {
 
     Shader::Shader(const Path& vertexPath, const Path& fragmentPath) {
         if (!std::filesystem::exists(vertexPath) || !std::filesystem::exists(fragmentPath)) {
-            Panic(GetSourceLocation(), "Path does not exist: {}", vertexPath.string());
+            Panic(std::source_location::current(), "Path does not exist: {}", vertexPath.string());
         }
 
         const auto vertexSource = IO::Read(vertexPath).value_or("");
         if (vertexSource.empty())
-            Panic("Could not read vertex shader");
+            Panic(std::source_location::current(), "Could not read vertex shader");
         const auto fragmentSource = IO::Read(fragmentPath).value_or("");
         if (fragmentSource.empty())
-            Panic("Could not read fragment shader");
+            Panic(std::source_location::current(), "Could not read fragment shader");
 
         CompileShaders(vertexSource.c_str(), fragmentSource.c_str());
     }
@@ -71,14 +71,14 @@ namespace GLTK {
 
             if (!success) {
                 glGetProgramInfoLog(handle, 1024, None, infoLog);
-                Panic(infoLog);
+                Panic(std::source_location::current(), "glGetProgramInfoLog: {}", infoLog);
             }
         } else {
             glGetShaderiv(handle, GL_COMPILE_STATUS, &success);
 
             if (!success) {
                 glGetShaderInfoLog(handle, 1024, None, infoLog);
-                Panic(infoLog);
+                Panic(std::source_location::current(), "glGetShaderInfoLog: {}", infoLog);
             }
         }
     }

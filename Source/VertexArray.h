@@ -25,7 +25,7 @@ namespace GLTK {
         VertexArray() {
             glGenVertexArrays(1, &mVAO);
             if (mVAO == 0)
-                Panic("VertexArray could not be created");
+                Panic(std::source_location::current(), "VertexArray could not be created");
         }
 
         ~VertexArray() {
@@ -50,9 +50,9 @@ namespace GLTK {
 
         template<typename T>
         void CreateVertexBuffer(const Vector<T>& vertices, Vector<VertexAttrib>& attribs) {
-            auto vboDescriptor = Buffer::BufferDescriptor<f32>();
-            vboDescriptor.Data = vertices.data();
-            const auto vbo     = Buffer::CreateBuffer(vboDescriptor);
+            Buffer::BufferDescriptor<T> vboDescriptor = {};
+            vboDescriptor.Data                        = vertices;
+            const auto vbo                            = Buffer::CreateBuffer(vboDescriptor);
 
             glBindBuffer(GL_ARRAY_BUFFER, vbo);
             for (auto i = 0; i < attribs.size(); ++i) {
@@ -84,6 +84,12 @@ namespace GLTK {
         static void SetAttributeDivisor(u32 index, u32 divisor) {
             glVertexAttribDivisor(index, divisor);
         }
+
+        void Draw(u32 primitive = GL_TRIANGLES) const {
+            glDrawArrays(primitive, 0, 4);
+        }
+
+        void DrawIndexed(u32 count, u32 primitive = GL_TRIANGLES) const {}
 
     private:
         u32 mVAO = 0;

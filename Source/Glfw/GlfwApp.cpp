@@ -20,7 +20,7 @@ namespace GLTK {
 
     void IGlfwApp::Run() {
         if (!glfwInit())
-            Panic("Failed to initialize GLFW");
+            Panic(std::source_location::current(), "Failed to initialize GLFW");
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -28,13 +28,13 @@ namespace GLTK {
 
         mWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mWindowTitle.c_str(), None, None);
         if (!mWindow)
-            Panic("Failed to create GLFW window");
+            Panic(std::source_location::current(), "Failed to create GLFW window");
 
         glfwMakeContextCurrent(mWindow);
 
         if (!gladLoadGLLoader(RCAST<GLADloadproc>(glfwGetProcAddress))) {
             glfwTerminate();
-            Panic("Failed to initialize OpenGL context");
+            Panic(std::source_location::current(), "Failed to initialize OpenGL context");
         }
 
         CreateGLResources();

@@ -19,7 +19,7 @@ set(SOURCES
         Source/OpenGLTK.h
         Source/Shader.cpp
         Source/Shader.h
-        Source/TextureLoader.h
+        Source/Texture.h
         Source/VertexArray.h
         Source/Camera.cpp
         Source/Camera.h
@@ -28,6 +28,7 @@ set(SOURCES
         Source/Clock.h
         Source/Glfw/GlfwApp.cpp
         Source/Glfw/GlfwApp.h
+        Source/Primitives.h
 )
 
 add_library(OpenGLTK STATIC

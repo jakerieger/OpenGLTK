@@ -16,18 +16,21 @@ namespace GLTK::Buffer {
         u32 Usage = GL_STATIC_DRAW;
         Vector<T> Data;
 
-        std::size_t Size() {
-            return sizeof(T) * Data.size();
-        }
+        std::size_t Size();
     };
 
     template<typename T>
-    u32 CreateBuffer(const BufferDescriptor<T>& descriptor) {
+    std::size_t BufferDescriptor<T>::Size() {
+        return sizeof(T) * Data.size();
+    }
+
+    template<typename T>
+    u32 CreateBuffer(BufferDescriptor<T>& descriptor) {
         u32 buffer;
         glGenBuffers(1, &buffer);
 
         if (buffer == 0)
-            Panic("Failed to create buffer");
+            Panic(std::source_location::current(), "Failed to create buffer");
 
         glBindBuffer(descriptor.Type, buffer);
         glBufferData(descriptor.Type, descriptor.Size(), descriptor.Data.data(), descriptor.Usage);

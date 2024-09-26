@@ -6,7 +6,7 @@
 
 #include "Camera.h"
 #include "Shader.h"
-#include "TextureLoader.h"
+#include "Texture.h"
 #include "VertexArray.h"
 #include "Clock.h"
 
