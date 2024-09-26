@@ -10,4 +10,8 @@
 #include "VertexArray.h"
 #include "Clock.h"
 
+#if defined(GLTK_INCLUDE_GLFW)
+    #include "Glfw/GlfwApp.h"
+#endif
+
 namespace GLTK {}  // namespace GLTK

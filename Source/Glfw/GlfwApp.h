@@ -17,7 +17,7 @@ namespace GLTK {
         virtual ~IGlfwApp();
         virtual void CreateGLResources()  = 0;
         virtual void DestroyGLResources() = 0;
-        virtual void Update(f32 dT)       = 0;
+        virtual void Update()             = 0;
         virtual void Render()             = 0;
         void Run();
 
