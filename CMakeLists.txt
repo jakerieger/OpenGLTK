@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.14)
 project(OpenGLTK)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -20,13 +20,14 @@ set(SOURCES
         Source/Shader.cpp
         Source/Shader.h
         Source/TextureLoader.h
-        Testbed/main.cpp
         Source/VertexArray.h
         Source/Camera.cpp
         Source/Camera.h
         Source/Buffer.h
         Source/Clock.cpp
         Source/Clock.h
+        Source/Glfw/GlfwApp.cpp
+        Source/Glfw/GlfwApp.h
 )
 
 add_library(OpenGLTK STATIC
@@ -35,9 +36,9 @@ add_library(OpenGLTK STATIC
 )
 
 find_package(glm CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 
 target_link_libraries(OpenGLTK PRIVATE
+        glfw
         glm::glm-header-only
 )
-
-add_subdirectory(Testbed)
