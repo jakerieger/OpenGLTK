@@ -8,31 +8,34 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 include(ThirdParty/ThirdPartySources.cmake)
 
 include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}/Source
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include
         ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty
 )
 
 set(SOURCES
-        Source/Types.h
-        Source/IO.h
-        Source/OpenGLTK.cpp
-        Source/OpenGLTK.h
-        Source/Shader.cpp
-        Source/Shader.h
-        Source/Texture.h
-        Source/VertexArray.h
         Source/Camera.cpp
-        Source/Camera.h
-        Source/Buffer.h
         Source/Clock.cpp
-        Source/Clock.h
+        Source/OpenGLTK.cpp
+        Source/Shader.cpp
         Source/Glfw/GlfwApp.cpp
-        Source/Glfw/GlfwApp.h
-        Source/Primitives.h
+)
+
+set(INCLUDES
+        Include/Buffer.h
+        Include/Camera.h
+        Include/Clock.h
+        Include/IO.h
+        Include/OpenGLTK.h
+        Include/Primitives.h
+        Include/Shader.h
+        Include/Texture.h
+        Include/Types.h
+        Include/VertexArray.h
 )
 
 add_library(OpenGLTK STATIC
         ${THIRD_PARTY_SRCS}
+        ${INCLUDES}
         ${SOURCES}
 )
 

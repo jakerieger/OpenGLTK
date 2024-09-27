@@ -12,15 +12,6 @@
 #include <glm/glm.hpp>
 
 namespace GLTK {
-    namespace AspectRatios {
-        static constexpr f32 kAspect4by3   = 4.f / 3.f;
-        static constexpr f32 kAspectSquare = 1.f;
-        static constexpr f32 kAspect5by4   = 5.f / 4.f;
-        static constexpr f32 kAspect16by9  = 16.0f / 9.0f;
-        static constexpr f32 kAspect16by10 = 16.0f / 10.0f;
-        static constexpr f32 kAspect32by9  = 32.0f / 9.0f;
-    }  // namespace AspectRatios
-
     class ICamera {
     public:
         virtual ~ICamera()                                        = default;
@@ -67,6 +58,6 @@ namespace GLTK {
         glm::vec3 mPosition;
 
         f32 mLeft, mRight, mBottom, mTop;
-        f32 mNear, mFar, mAspect, mZoom;
+        f32 mNear, mFar, mZoom;
     };
 }  // namespace GLTK

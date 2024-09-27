@@ -2,12 +2,16 @@
 // Created: 9/25/2024.
 //
 
-#include "GlfwApp.h"
+#include "Glfw/GlfwApp.h"
 
 #include <utility>
 #include <Panic/Panic.h>
 
 namespace GLTK {
+    static void ResizeHandler(GLFWwindow*, const int width, const int height) {
+        glViewport(0, 0, width, height);
+    }
+
     IGlfwApp::IGlfwApp(str title, int width, int height)
         : mWindowTitle(std::move(title)), mWindowWidth(width), mWindowHeight(height) {
         mClock = std::make_unique<Clock>();
@@ -31,16 +35,17 @@ namespace GLTK {
             Panic(std::source_location::current(), "Failed to create GLFW window");
 
         glfwMakeContextCurrent(mWindow);
+        glfwSetFramebufferSizeCallback(mWindow, ResizeHandler);
 
         if (!gladLoadGLLoader(RCAST<GLADloadproc>(glfwGetProcAddress))) {
             glfwTerminate();
             Panic(std::source_location::current(), "Failed to initialize OpenGL context");
         }
 
-        CreateGLResources();
-
         glViewport(0, 0, mWindowWidth, mWindowHeight);
         glClearColor(0.f, 0.f, 0.f, 1.f);
+
+        CreateGLResources();
 
         mClock->Start();
         while (!glfwWindowShouldClose(mWindow)) {

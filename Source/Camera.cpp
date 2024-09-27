@@ -15,8 +15,7 @@ namespace GLTK {
 
     OrthoCamera::OrthoCamera(f32 width, f32 height, f32 near, f32 far)
         : mView(glm::mat4(1.0f)), mProjection(glm::mat4(1.0f)), mPosition({0.f, 0.f, 0.f}),
-          mLeft(0), mRight(0), mBottom(0), mTop(0), mNear(near), mFar(far),
-          mAspect(AspectRatios::kAspect16by9), mZoom(1.f) {
+          mLeft(0), mRight(0), mBottom(0), mTop(0), mNear(near), mFar(far), mZoom(1.f) {
         WHToLRTB(width, height, mLeft, mRight, mBottom, mTop);
         Update();
     }
