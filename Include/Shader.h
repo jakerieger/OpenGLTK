@@ -8,13 +8,19 @@
 #include <glm/glm.hpp>
 
 namespace GLTK {
+    /// @brief Encapsulates an OpenGL vertex/fragment shader program.
+    ///
+    /// @warning Cannot be used for compute or geometry shaders.
     class Shader {
     public:
         Shader(const char* vertexSource, const char* fragmentSource);
         Shader(const Path& vertexPath, const Path& fragmentPath);
         ~Shader();
 
+        /// @brief Binds this shader to the OpenGL context
         void Bind() const;
+
+        /// @brief Unbinds any currently bound shader.
         static void Unbind();
 
         void SetBool(const char* name, bool value) const;

@@ -12,26 +12,53 @@
 #include <glm/glm.hpp>
 
 namespace GLTK {
+    /// @brief Base interface that can be used to implement Camera-like objects.
+    ///
+    /// It provides a method for returning the View-Projection (combined) matrix
+    /// and an update method for updating camera properties.
     class ICamera {
     public:
-        virtual ~ICamera()                                        = default;
-        [[nodiscard]] virtual glm::mat4 GetViewProjection() const = 0;
-        virtual void Update()                                     = 0;
+        virtual ~ICamera() = default;
 
+        /// @brief Returns the combined View-Projection matrix of the camera. One of two required
+        /// overloads.
+        [[nodiscard]] virtual glm::mat4 GetViewProjection() const = 0;
+
+        /// @brief This is where update logic for the camera should be replaced. Also, a required
+        /// overload.
+        virtual void Update() = 0;
+
+        /// @brief Casts down from ICamera to T.
+        /// @tparam T Class implementing ICamera that you want to cast down to.
+        ///
+        /// Example:
+        /// @code
+        /// void SomeFunction(const std::shared<ICamera>& camera) {
+        ///     auto orthoCamera = camera->As<OrthoCamera>();
+        ///     orthoCamera->someOrthoSpecificMethod();
+        /// }
+        /// @endcode
         template<typename T>
         T* As() {
             return DCAST<T*>(this);
         }
     };
 
+    /// @brief Concept alias for `is_base_of_v<ICamera, T>`
     template<typename T>
     concept Camera = std::is_base_of_v<ICamera, T>;
 
+    /// @brief Creates a shared pointer to a specific type of camera instance.
+    /// @tparam T The type of ICamera to create.
+    /// @tparam Args Arguments to be passed on to the constructor of T.
+    /// @note If creating camera instances yourself, I'd recommend creating them as shared pointers
+    /// so they're compatible with the rest of OpenGLTK.
     template<Camera T, typename... Args>
     Shared<T> CreateCamera(Args&&... args) {
         return std::make_shared<T>(std::forward<Args>(args)...);
     }
 
+    /// @brief Implements a basic orthographic camera.
     class OrthoCamera final : public ICamera {
     public:
         OrthoCamera(f32 width, f32 height, f32 near = -1.f, f32 far = 1.f);

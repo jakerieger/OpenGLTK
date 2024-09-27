@@ -8,7 +8,9 @@
 
 #include <fstream>
 
+/// @brief Provides utilities for reading and writing files.
 namespace GLTK::IO {
+    /// @brief Reads a file to a string.
     inline Option<str> Read(const Path& filename) {
         if (!exists(filename) || is_directory(filename)) {
             return kNone;
@@ -25,6 +27,7 @@ namespace GLTK::IO {
         return content;
     }
 
+    /// @brief Reads a file to a vector of bytes (uint8).
     inline Option<Vector<u8>> ReadAllBytes(const Path& filename) {
         if (!exists(filename) || is_directory(filename)) {
             return kNone;
@@ -41,6 +44,8 @@ namespace GLTK::IO {
         return bytes;
     }
 
+    /// @brief Reads a file to a vector of string lines. Each line of the file
+    /// can be accessed with its index.
     inline Option<Vector<str>> ReadAllLines(const Path& filename) {
         if (!exists(filename) || is_directory(filename)) {
             return kNone;
@@ -62,6 +67,9 @@ namespace GLTK::IO {
         return lines;
     }
 
+    /// @brief Reads a specific block of data from a file.
+    /// @param blockOffset The starting point of the data block.
+    /// @param blockSize How much data to read.
     inline Option<Vector<u8>>
     ReadBlock(const Path& filename, const u32 blockOffset, const size_t blockSize) {
         if (!exists(filename) || is_directory(filename)) {
@@ -88,6 +96,7 @@ namespace GLTK::IO {
         return buffer;
     }
 
+    /// @brief Writes a string to a text file.
     inline bool Write(const Path& filename, const str& content) {
         std::ofstream outfile(filename);
         if (!outfile.is_open()) {
@@ -100,6 +109,7 @@ namespace GLTK::IO {
         return true;
     }
 
+    /// @brief Writes a vector of bytes to a binary file.
     inline bool WriteAllBytes(const Path& filename, const Vector<u8>& bytes) {
         std::ofstream outfile(filename, std::ios::binary);
         if (!outfile.is_open()) {
@@ -112,6 +122,7 @@ namespace GLTK::IO {
         return true;
     }
 
+    /// @brief Writes a vector of string lines to a text file.
     inline bool WriteAllLines(const Path& filename, const Vector<str>& lines) {
         std::ofstream outfile(filename);
         if (!outfile.is_open()) {

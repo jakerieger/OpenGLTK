@@ -12,13 +12,20 @@
 #include <Panic/Panic.h>
 
 namespace GLTK::Texture {
+    static constexpr auto kMaxSlot = 31;
+
+    /// @brief Internal function used to convert a slot number into its corresponding
+    /// enum value.
     inline u32 GetGLSlot(u32 slot) {
-        if (slot > 31)
+        if (slot > kMaxSlot)
             Panic(std::source_location::current(),
                   "Slot is out of range! Must be (> 0) and (< 32)");
         return GL_TEXTURE0 + slot;
     }
 
+    /// @brief Loads an image file as an OpenGL texture object.
+    /// @param width If not null, this function will set it to the width of the image.
+    /// @param height If not null, this function will set it to the height the image.
     inline u32 Load(const char* filename, int* width = nullptr, int* height = nullptr) {
         u32 id;
         glGenTextures(1, &id);
@@ -60,15 +67,18 @@ namespace GLTK::Texture {
         return id;
     }
 
+    /// @brief Deletes an OpenGL texture object
     inline void Delete(u32 id) {
         glDeleteTextures(1, &id);
     }
 
+    /// @brief Binds the supplied OpenGL texture object to the specified slot. The max slot is 31.
     inline void Bind(u32 id, u32 slot) {
         glBindTexture(GL_TEXTURE_2D, id);
         glActiveTexture(GetGLSlot(slot));
     }
 
+    /// @brief Unbinds any currently bound texture.
     inline void Unbind() {
         glBindTexture(GL_TEXTURE_2D, 0);
     }

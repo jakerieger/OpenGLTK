@@ -6,10 +6,9 @@
 
 #include "Types.h"
 
-#include <array>
-
+/// @brief Provides pre-defined vertex data for simple geometric primitives.
 namespace GLTK::Primitives {
-    /// Quad defined by a 4D vector, x,y for position and z,w for tex coords.
+    /// @brief Quad defined by a 4D vector, x,y for position and z,w for tex coords.
     static const Vector<f32> QuadVertTex = {
       -1.0f,
       1.0f,
