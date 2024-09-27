@@ -13,24 +13,25 @@ include_directories(
 )
 
 set(SOURCES
-        Source/Camera.cpp
-        Source/Clock.cpp
-        Source/OpenGLTK.cpp
-        Source/Shader.cpp
-        Source/Glfw/GlfwApp.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/Camera.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/Clock.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/OpenGLTK.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/Shader.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/Glfw/GlfwApp.cpp
 )
 
 set(INCLUDES
-        Include/Buffer.h
-        Include/Camera.h
-        Include/Clock.h
-        Include/IO.h
-        Include/OpenGLTK.h
-        Include/Primitives.h
-        Include/Shader.h
-        Include/Texture.h
-        Include/Types.h
-        Include/VertexArray.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Buffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Camera.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Clock.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/IO.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/OpenGLTK.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Primitives.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Shader.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Texture.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Types.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/VertexArray.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Include/Glfw/GlfwApp.h
 )
 
 add_library(OpenGLTK STATIC
@@ -46,3 +47,5 @@ target_link_libraries(OpenGLTK PRIVATE
         glfw
         glm::glm-header-only
 )
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/CMake/Includes.cmake)
